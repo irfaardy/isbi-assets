@@ -48,7 +48,7 @@ class UserController extends Controller
                     'id' => "required|exists:\App\Models\User,id",
                     'name' => "required|string|max:60",
                     'email' => "required|email|unique:\App\Models\User,email,".$request->id,
-                    'password' => "required|confirmed|min:8",
+                    'password' => "nullable|confirmed|min:8",
                     'role' => "required|in:admin,ketua_upt,unit_kerja",
                     ];
         $this->validate($request, $validate);
