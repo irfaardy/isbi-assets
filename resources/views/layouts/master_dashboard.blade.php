@@ -123,7 +123,7 @@
     <!-- Brand Logo -->
     <a href="../../index3.html" class="brand-link">
       <img src="{{asset('assets/logo/logo.png')}}" alt="" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light">Sitari</span>
+      <span class="brand-text font-weight-light">Manajemen Aset</span>
     </a>
 
     <!-- Sidebar -->
@@ -212,7 +212,7 @@
     <div class="float-right d-none d-sm-block">
       <b>Version</b> 1.0.0
     </div>
-    <strong>Copyright &copy; 2022 Sanggar Tari Ayunindya.</strong> All rights reserved.
+    <strong>Copyright &copy; 2022 Institut Seni Budaya Indonesia.</strong> All rights reserved.
   </footer>
 
   <!-- Control Sidebar -->

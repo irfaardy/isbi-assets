@@ -10,9 +10,18 @@
     </div>
     <div class="card-body">
       <p class="login-box-msg">Wilujeung Sumping</p>
+       @error('email')
+           <div class="alert alert-danger" align="center">{{$message}}</div>
+
+        @enderror 
+        @error('password')
+           <div class="alert alert-danger" align="center">{{$message}}</div>
+
+        @enderror
 
       <form action="{{ route('login') }}" method="post">
         <div class="input-group mb-3">
+            @csrf
           <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" placeholder="nama@email.com" autofocus>
           <div class="input-group-append">
             <div class="input-group-text">
