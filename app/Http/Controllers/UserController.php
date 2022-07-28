@@ -31,14 +31,14 @@ class UserController extends Controller
         // dd($request->password_confirmation." ".$request->password);
         $this->validate($request, $validate);
 
-        User::create($this->params($request));
+       User::create($this->params($request));
 
         return redirect()->route('pengguna')->with(['message_success' => 'Berhasil menambahkan pengguna']);
     }
 
     public function edit($id)
     {
-        $user = User::where('id',$id)->first();
+        $user =User::where('id',$id)->first();
         return view('admin/pengguna/edit')->with(['user' => $user]);
     }
 
@@ -53,7 +53,7 @@ class UserController extends Controller
                     ];
         $this->validate($request, $validate);
 
-        User::where('id',$request->id)->update($this->params($request));
+       User::where('id',$request->id)->update($this->params($request));
 
         return redirect()->back()->with(['message_success' => 'Berhasil mengubah data Pengguna']);
     }
