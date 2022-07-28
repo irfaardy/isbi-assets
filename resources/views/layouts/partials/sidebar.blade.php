@@ -23,13 +23,13 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="../../index.html" class="nav-link">
+                <a href="{{route('data.aset.masuk')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Aset Masuk</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="../../index2.html" class="nav-link">
+                <a href="{{route('data.aset.keluar')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Aset Keluar</p>
                 </a>

@@ -33,4 +33,18 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
     Route::post('/aset/save', [App\Http\Controllers\AsetController::class, 'save'])->name('data.aset.save');
     Route::post('/aset/update', [App\Http\Controllers\AsetController::class, 'update'])->name('data.aset.update');
     Route::get('/aset/edit/{id}', [App\Http\Controllers\AsetController::class, 'edit'])->name('data.aset.edit');
-    Route::get('/aset/delete/{id}', [App\Http\Controllers\AsetController::class, 'delete'])->name('data.aset.delete');
+    Route::get('/aset/delete/{id}', [App\Http\Controllers\AsetController::class, 'delete'])->name('data.aset.delete'); 
+    //ASET MASUK
+    Route::get('/aset-masuk', [App\Http\Controllers\AsetMasukController::class, 'index'])->name('data.aset.masuk');
+    Route::get('/aset-masuk/create', [App\Http\Controllers\AsetMasukController::class, 'create'])->name('data.aset.masuk.create');
+    Route::post('/aset-masuk/save', [App\Http\Controllers\AsetMasukController::class, 'save'])->name('data.aset.masuk.save');
+    Route::post('/aset-masuk/update', [App\Http\Controllers\AsetMasukController::class, 'update'])->name('data.aset.masuk.update');
+    Route::get('/aset-masuk/edit/{id}', [App\Http\Controllers\AsetMasukController::class, 'edit'])->name('data.aset.masuk.edit');
+    Route::get('/aset-masuk/delete/{id}', [App\Http\Controllers\AsetMasukController::class, 'delete'])->name('data.aset.masuk.delete'); 
+    //ASET MASUK
+    Route::get('/aset-keluar', [App\Http\Controllers\AsetKeluarController::class, 'index'])->name('data.aset.keluar');
+    Route::get('/aset-keluar/create', [App\Http\Controllers\AsetKeluarController::class, 'create'])->name('data.aset.keluar.create');
+    Route::post('/aset-keluar/save', [App\Http\Controllers\AsetKeluarController::class, 'save'])->name('data.aset.keluar.save');
+    Route::post('/aset-keluar/update', [App\Http\Controllers\AsetKeluarController::class, 'update'])->name('data.aset.keluar.update');
+    Route::get('/aset-keluar/edit/{id}', [App\Http\Controllers\AsetKeluarController::class, 'edit'])->name('data.aset.keluar.edit');
+    Route::get('/aset-keluar/delete/{id}', [App\Http\Controllers\AsetKeluarController::class, 'delete'])->name('data.aset.keluar.delete');
