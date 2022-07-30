@@ -48,3 +48,12 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
     Route::post('/aset-keluar/update', [App\Http\Controllers\AsetKeluarController::class, 'update'])->name('data.aset.keluar.update');
     Route::get('/aset-keluar/edit/{id}', [App\Http\Controllers\AsetKeluarController::class, 'edit'])->name('data.aset.keluar.edit');
     Route::get('/aset-keluar/delete/{id}', [App\Http\Controllers\AsetKeluarController::class, 'delete'])->name('data.aset.keluar.delete');
+    //ASET MASUK
+    Route::get('/permintaan-aset', [App\Http\Controllers\PermintaanAsetController::class, 'index'])->name('pengajuan.aset');
+    Route::get('/permintaan-aset/pengajuan', [App\Http\Controllers\PermintaanAsetController::class, 'create'])->name('pengajuan.aset.create');
+    Route::post('/permintaan-aset/save', [App\Http\Controllers\PermintaanAsetController::class, 'save'])->name('pengajuan.aset.save');
+    Route::post('/permintaan-aset/update', [App\Http\Controllers\PermintaanAsetController::class, 'update'])->name('pengajuan.aset.update');
+    Route::get('/permintaan-aset/edit/{id}', [App\Http\Controllers\PermintaanAsetController::class, 'edit'])->name('pengajuan.aset.edit');
+    Route::get('/permintaan-aset/delete/{id}', [App\Http\Controllers\PermintaanAsetController::class, 'delete'])->name('pengajuan.aset.delete');
+    Route::get('/permintaan-aset/acc/{id}', [App\Http\Controllers\PermintaanAsetController::class, 'delete'])->name('pengajuan.aset.acc');
+    Route::get('/permintaan-aset/tolak/{id}', [App\Http\Controllers\PermintaanAsetController::class, 'delete'])->name('pengajuan.aset.tolak');
