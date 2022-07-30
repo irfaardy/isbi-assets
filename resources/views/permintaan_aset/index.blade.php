@@ -15,6 +15,7 @@
 						<th>Unit Kerja</th>
 						<th>nama barang</th>
 						<th>jumlah</th>
+						<th>Status</th>
 						<th>aksi</th>
 					</thead>
 					<tbody>
@@ -27,6 +28,14 @@
 							<td>{{$dt->unit_kerja}}</td>
 							<td>{{$dt->aset->nama_barang}}</td>
 							<td>{{$dt->jumlah}}</td>
+							<td>@if($dt->is_acc == 0)
+									<span class="badge badge-secondary">Menunggu</span>
+								@elseif($dt->is_acc == 1)
+									<span class="badge badge-success">Disetujui</span>
+								@elseif($dt->is_acc == 2)
+									<span class="badge badge-danger">Ditolak</span>
+								@endif
+							</td>
 							<td>
 								
 								<a href="{{route('pengajuan.aset.edit',['id' => $dt->id])}}" class="btn btn-primary">Detail</a>

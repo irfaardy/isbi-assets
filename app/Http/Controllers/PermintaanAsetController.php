@@ -29,7 +29,7 @@ class PermintaanAsetController extends Controller
                     'asset_id' => "required|exists:\App\Models\Aset,id",
                     'jumlah' => "required|numeric",
                     'kepentingan' => "required|string",
-                    'keterangan' => "required|string",
+                    'keterangan' => "nullable|string",
                     ];
         // dd($request->password_confirmation." ".$request->password);
         $this->validate($request, $validate);
@@ -55,7 +55,7 @@ class PermintaanAsetController extends Controller
                     'asset_id' => "required|exists:\App\Models\Aset,id",
                     'jumlah' => "required|numeric",
                     'kepentingan' => "required|string",
-                    'keterangan' => "required|string",
+                    'keterangan' => "nullable|string",
                     ];
         $this->validate($request, $validate);
 
@@ -74,9 +74,12 @@ class PermintaanAsetController extends Controller
     private function params($request)
     {
         $params = [
-            'tanggal' => $request->tanggal,
+            'nama_pengaju' => $request->nama_pengaju,
+            'unit_kerja' => $request->unit_kerja,
             'asset_id' => $request->asset_id,
             'jumlah' => $request->jumlah,
+            'kepentingan' => $request->kepentingan,
+            'keterangan' => $request->keterangan,
         ];
         return $params;
     }
