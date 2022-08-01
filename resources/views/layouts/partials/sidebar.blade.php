@@ -81,13 +81,13 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="../../index.html" class="nav-link">
+                <a href="{{route('pengajuan.laporan')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Data Laporan Aset</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="../../index2.html" class="nav-link">
+                <a href="{{route('pengajuan.laporan.create')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Ajukan Laporan Aset</p>
                 </a>

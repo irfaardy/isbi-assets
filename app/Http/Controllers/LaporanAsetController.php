@@ -2,23 +2,23 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\PermintaanAset;
+use App\Models\LaporanAset;
 use App\Models\Aset;
 use Hash;
-class PermintaanAsetController extends Controller
+class LaporanAsetController extends Controller
 {
     
    
     public function index()
     {
-        $assets = PermintaanAset::get();
-        return view('permintaan_aset/index')->with(['assets' => $assets]);
+        $assets = LaporanAset::get();
+        return view('laporan/index')->with(['assets' => $assets]);
     }
 
     public function create()
     {
         $aset = Aset::orderBy('nama_barang','ASC')->get();
-        return view('permintaan_aset/create')->with(['aset' => $aset]);
+        return view('laporan/create')->with(['aset' => $aset]);
     }
 
     public function save(Request $request)
@@ -26,43 +26,43 @@ class PermintaanAsetController extends Controller
         $validate = [
                     'nama_pengaju' => "required|string",
                     'unit_kerja' => "required|string",
-                    'asset_id' => "required|exists:\App\Models\Aset,id",
-                    'jumlah' => "required|numeric",
-                    'kepentingan' => "required|string",
+                    'judul_laporan' => "required|exists:\App\Models\Aset,id",
+                    'tanggal' => "required|string",
+                    'file' => "max:5300|mimes:pdf,doc,docx,jpg,rtf",
                     'keterangan' => "nullable|string",
                     ];
         // dd($request->password_confirmation." ".$request->password);
         $this->validate($request, $validate);
 
-        PermintaanAset::create($this->params($request));
+        LaporanAset::create($this->params($request));
 
         return redirect()->route('pengajuan.aset')->with(['message_success' => 'Berhasil menambahkan pengajuan']);
     }
 
     public function edit($id)
     {
-        $data = PermintaanAset::where('id',$id)->first();
+        $data = LaporanAset::where('id',$id)->first();
         $aset = Aset::orderBy('nama_barang','ASC')->get();
-        return view('permintaan_aset/edit')->with(['data' => $data,'aset_list' => $aset]);
+        return view('laporan/edit')->with(['data' => $data,'aset_list' => $aset]);
     }
 
     public function detail($id)
     {
-        $data = PermintaanAset::where('id',$id)->first();
+        $data = LaporanAset::where('id',$id)->first();
         $aset = Aset::orderBy('nama_barang','ASC')->get();
-        return view('permintaan_aset/detail')->with(['data' => $data,'aset_list' => $aset]);
+        return view('laporan/detail')->with(['data' => $data,'aset_list' => $aset]);
     }
 
 
     public function acc($id)
     {
-        PermintaanAset::where('id',$id)->update(['is_acc' => 1,'accessor_id' => auth()->user()->id]);
+        LaporanAset::where('id',$id)->update(['is_acc' => 1,'accessor_id' => auth()->user()->id]);
         return redirect()->route('pengajuan.aset')->with(['message_success' => 'Berhasil menerima pengajuan']);
     }
 
     public function tolak($id)
     {
-       PermintaanAset::where('id',$id)->update(['is_acc' => 2,'accessor_id' => auth()->user()->id]);
+       LaporanAset::where('id',$id)->update(['is_acc' => 2,'accessor_id' => auth()->user()->id]);
         return redirect()->route('pengajuan.aset')->with(['message_success' => 'Berhasil menolak pengajuan']);
     }
 
@@ -79,7 +79,7 @@ class PermintaanAsetController extends Controller
                     ];
         $this->validate($request, $validate);
 
-        PermintaanAset::where('id',$request->id)->update($this->params($request));
+        LaporanAset::where('id',$request->id)->update($this->params($request));
 
         return redirect()->back()->with(['message_success' => 'Berhasil mengubah  pengajuan']);
     }
@@ -87,7 +87,7 @@ class PermintaanAsetController extends Controller
     {
         
 
-        PermintaanAset::where('id',$id)->delete();
+        LaporanAset::where('id',$id)->delete();
 
         return redirect()->back()->with(['message_success' => 'Berhasil menghapus pengajuan']);
     }
@@ -96,11 +96,16 @@ class PermintaanAsetController extends Controller
         $params = [
             'nama_pengaju' => $request->nama_pengaju,
             'unit_kerja' => $request->unit_kerja,
-            'asset_id' => $request->asset_id,
-            'jumlah' => $request->jumlah,
-            'kepentingan' => $request->kepentingan,
+            'judul_laporan' => $request->judul_laporan,
+            'tanggal' => $request->tanggal,
+            
             'keterangan' => $request->keterangan,
+            'updated_by' => auth()->user()->id,
         ];
+        if(empty($request->file))
+        {
+            $params['file']  = $request->file;
+        }
         return $params;
     }
 }

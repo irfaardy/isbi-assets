@@ -54,6 +54,18 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
     Route::post('/permintaan-aset/save', [App\Http\Controllers\PermintaanAsetController::class, 'save'])->name('pengajuan.aset.save');
     Route::post('/permintaan-aset/update', [App\Http\Controllers\PermintaanAsetController::class, 'update'])->name('pengajuan.aset.update');
     Route::get('/permintaan-aset/edit/{id}', [App\Http\Controllers\PermintaanAsetController::class, 'edit'])->name('pengajuan.aset.edit');
+    Route::get('/permintaan-aset/detail/{id}', [App\Http\Controllers\PermintaanAsetController::class, 'detail'])->name('pengajuan.aset.details');
     Route::get('/permintaan-aset/delete/{id}', [App\Http\Controllers\PermintaanAsetController::class, 'delete'])->name('pengajuan.aset.delete');
-    Route::get('/permintaan-aset/acc/{id}', [App\Http\Controllers\PermintaanAsetController::class, 'delete'])->name('pengajuan.aset.acc');
-    Route::get('/permintaan-aset/tolak/{id}', [App\Http\Controllers\PermintaanAsetController::class, 'delete'])->name('pengajuan.aset.tolak');
+    Route::get('/permintaan-aset/acc/{id}', [App\Http\Controllers\PermintaanAsetController::class, 'acc'])->name('pengajuan.aset.acc');
+    Route::get('/permintaan-aset/tolak/{id}', [App\Http\Controllers\PermintaanAsetController::class, 'tolak'])->name('pengajuan.aset.tolak');   
+    //ASET MASUK
+    Route::get('/laporan-aset', [App\Http\Controllers\LaporanAsetController::class, 'index'])->name('pengajuan.laporan');
+    Route::get('/laporan-aset/pengajuan', [App\Http\Controllers\LaporanAsetController::class, 'create'])->name('pengajuan.laporan.create');
+    Route::post('/laporan-aset/save', [App\Http\Controllers\LaporanAsetController::class, 'save'])->name('pengajuan.laporan.save');
+    Route::post('/laporan-aset/update', [App\Http\Controllers\LaporanAsetController::class, 'update'])->name('pengajuan.laporan.update');
+    Route::get('/laporan-aset/edit/{id}', [App\Http\Controllers\LaporanAsetController::class, 'edit'])->name('pengajuan.laporan.edit');
+    Route::get('/laporan-aset/delete/{id}', [App\Http\Controllers\LaporanAsetController::class, 'delete'])->name('pengajuan.laporan.delete');
+    Route::get('/laporan-aset/acc/{id}', [App\Http\Controllers\LaporanAsetController::class, 'acc'])->name('pengajuan.laporan.acc');
+    Route::get('/laporan-aset/tolak/{id}', [App\Http\Controllers\LaporanAsetController::class, 'tolak'])->name('pengajuan.laporan.tolak');
+    
+    Route::get('/permintaan-aset/detail/{id}', [App\Http\Controllers\PermintaanAsetController::class, 'detail'])->name('pengajuan.laporan.detail');

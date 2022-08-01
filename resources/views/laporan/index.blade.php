@@ -1,6 +1,6 @@
 
 @extends('layouts.master_dashboard')
-@section('title','Data Permintaan aset')
+@section('title','Data Laporan aset')
 @section('content')
 	<div class="row">
 		
@@ -13,9 +13,9 @@
 						<th>Tanggal</th>
 						<th>Nama Pengaju</th>
 						<th>Unit Kerja</th>
-						<th>nama barang</th>
-						<th>jumlah</th>
-						<th>Status</th>
+						<th>Judul Laporan</th>
+						<th>File Laporan</th>
+						<th>Keterangan</th>
 						<th>aksi</th>
 					</thead>
 					<tbody>
@@ -23,11 +23,11 @@
 						@foreach($assets as $dt)
 						<tr>
 							<td>{{$dt->id}}</td>
-							<td>{{date("Y-m-d",strtotime($dt->created_at))}}</td>
+							<td>{{$dt->tanggal}}</td>
 							<td>{{$dt->nama_pengaju}}</td>
 							<td>{{$dt->unit_kerja}}</td>
-							<td>{{$dt->aset->nama_barang}}</td>
-							<td>{{$dt->jumlah}}</td>
+							<td>{{$dt->judul_laporan}}</td>
+							<td>{{$dt->file}}</td>
 							<td>@if($dt->is_acc == 0)
 									<span class="badge badge-secondary">Menunggu</span>
 								@elseif($dt->is_acc == 1)
@@ -40,9 +40,9 @@
 							
 								<a href="{{route('pengajuan.laporan.detail',['id' => $dt->id])}}" class="btn btn-primary">Detail</a>
 								@if($dt->is_acc != 1)
-								<a href="{{route('pengajuan.aset.edit',['id' => $dt->id])}}" class="btn btn-warning">Edit</a>
+								<a href="{{route('pengajuan.laporan.edit',['id' => $dt->id])}}" class="btn btn-warning">Edit</a>
 							
-								<a href="{{route('pengajuan.aset.delete',['id' => $dt->id])}}" class="btn btn-danger">Hapus</a>
+								<a href="{{route('pengajuan.laporan.delete',['id' => $dt->id])}}" class="btn btn-danger">Hapus</a>
 								@endif
 							</td>
 						</tr>
