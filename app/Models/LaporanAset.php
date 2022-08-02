@@ -8,14 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class LaporanAset extends Model
 {
    
-    protected $table = "permintaan_asset";
+    protected $table = "laporan_asset";
     /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
     protected $fillable = [
-        'nama_pengaju','unit_kerja','judul_laporan','tanggal','file','keterangan','is_acc','accessor_id','updated_by'
+        'nama_pengaju','pengaju_id','unit_kerja','judul_laporan','tanggal','file','keterangan','is_acc','accessor_id','updated_by'
     ];
 
      public function aset()

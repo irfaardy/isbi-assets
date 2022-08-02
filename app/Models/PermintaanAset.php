@@ -15,7 +15,7 @@ class PermintaanAset extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'nama_pengaju','unit_kerja','asset_id','jumlah','kepentingan','is_acc','accessor_id','keterangan'
+        'nama_pengaju','pengaju_id','unit_kerja','asset_id','jumlah','kepentingan','is_acc','accessor_id','keterangan'
     ];
 
      public function aset()

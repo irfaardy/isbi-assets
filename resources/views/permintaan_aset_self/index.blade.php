@@ -45,7 +45,7 @@
 							</td>
 							<td>
 							
-								<a href="{{route('pengajuan.aset.details',['id' => $dt->id])}}" class="btn btn-primary">Detail</a>
+								<a href="{{route('pengajuan.laporan.detail',['id' => $dt->id])}}" class="btn btn-primary">Detail</a>
 								@if($dt->is_acc != 1)
 								<a href="{{route('pengajuan.aset.edit',['id' => $dt->id])}}" class="btn btn-warning">Edit</a>
 							

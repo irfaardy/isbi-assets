@@ -4,17 +4,30 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\PermintaanAset;
 use App\Models\Aset;
+use App\Exports\PermintaanAsetExport;
 use Hash;
 class PermintaanAsetController extends Controller
 {
     
    
-    public function index()
+    public function index(Request $request)
     {
-        $assets = PermintaanAset::get();
+        if(!empty($request->id))
+        {
+            $assets = PermintaanAset::where('id',$request->id)->get();
+
+        } else{
+
+            $assets = PermintaanAset::get();
+        }
         return view('permintaan_aset/index')->with(['assets' => $assets]);
     }
 
+    public function index_self()
+    {
+        $assets = PermintaanAset::where('pengaju_id',auth()->user()->id)->get();
+        return view('permintaan_aset/index')->with(['assets' => $assets]);
+    }
     public function create()
     {
         $aset = Aset::orderBy('nama_barang','ASC')->get();
@@ -44,11 +57,43 @@ class PermintaanAsetController extends Controller
         $data = PermintaanAset::where('id',$id)->first();
         $aset = Aset::orderBy('nama_barang','ASC')->get();
         return view('permintaan_aset/edit')->with(['data' => $data,'aset_list' => $aset]);
+    } 
+
+    public function export(Request $request)
+    {
+         $validate = [
+                        'tipe' => 'required|in:0,1,2',
+                        'start' => 'required|date',
+                        'end' => 'required|date',
+                    ];
+        $this->validate($request, $validate);
+        $PermintaanAset = PermintaanAset::whereBetween('created_at', [$request->start." 00:00:00", $request->end." 00:00:00"])->where('is_acc',$request->tipe)->get();
+        $range = $request->start." s/d ".$request->end;
+        if(empty(count($PermintaanAset)))
+        {
+             return redirect()->route('pengajuan.aset')->with(['message_fail' => 'Tidak ada data permintaan pada tanggal '.$range.'.']); 
+        }
+        switch($request->tipe){
+            case 0:
+                $tipe = "Menunggu-Persetujuan";
+            break; 
+            case 1:
+                $tipe = "Disetujui";
+            break; 
+            case 2:
+                $tipe = "Ditolak";
+            break; 
+            default:
+                $tipe = "Tidak-diketahui";
+            break;
+        }
+
+         return \Excel::download(new PermintaanAsetExport($PermintaanAset,$range,$tipe), 'ISBI-PERMINTAAN-ASET_'.$tipe."_".str_replace("/", "", $range).'.xlsx');
     }
 
     public function detail($id)
     {
-        $data = PermintaanAset::where('id',$id)->first();
+        $data = PermintaanAset::where('id',$id)->firstOrFail();
         $aset = Aset::orderBy('nama_barang','ASC')->get();
         return view('permintaan_aset/detail')->with(['data' => $data,'aset_list' => $aset]);
     }
@@ -79,7 +124,7 @@ class PermintaanAsetController extends Controller
                     ];
         $this->validate($request, $validate);
 
-        PermintaanAset::where('id',$request->id)->update($this->params($request));
+        PermintaanAset::where('id',$request->id)->update($this->params($request,true));
 
         return redirect()->back()->with(['message_success' => 'Berhasil mengubah  pengajuan']);
     }
@@ -91,7 +136,7 @@ class PermintaanAsetController extends Controller
 
         return redirect()->back()->with(['message_success' => 'Berhasil menghapus pengajuan']);
     }
-    private function params($request)
+    private function params($request,$is_update=false)
     {
         $params = [
             'nama_pengaju' => $request->nama_pengaju,
@@ -101,6 +146,10 @@ class PermintaanAsetController extends Controller
             'kepentingan' => $request->kepentingan,
             'keterangan' => $request->keterangan,
         ];
+         if(!$is_update)
+        {
+            $params['pengaju_id'] = auth()->user()->id;
+        }
         return $params;
     }
 }

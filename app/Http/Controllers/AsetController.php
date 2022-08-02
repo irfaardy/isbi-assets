@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Aset;
+use App\Imports\AsetImport;
 use Hash;
 class AsetController extends Controller
 {
@@ -35,7 +36,24 @@ class AsetController extends Controller
 
         return redirect()->route('data.aset')->with(['message_success' => 'Berhasil menambahkan asset']);
     }
-
+    public function import(Request $request)
+    {
+         $this->validate($request, [
+            'file' => 'required|mimes:xls,xlsx|max:102000'
+        ]);
+ 
+      
+        $file = $request->file('file');
+ 
+        $nama_file = time().$file->getClientOriginalName();
+ 
+        $file->move(storage_path('imported'),$nama_file);
+ 
+       
+        \Excel::import(new AsetImport, storage_path('/imported/'.$nama_file));
+ 
+       return redirect()->route('data.aset')->with(['message_success' => 'Berhasil mengimpor asset']);
+    }
     public function edit($id)
     {
         $assets = Aset::where('id',$id)->first();

@@ -9,9 +9,22 @@ class LaporanAsetController extends Controller
 {
     
    
-    public function index()
+    public function index(Request $request)
     {
-        $assets = LaporanAset::get();
+        if(!empty($request->id))
+        {
+            $assets = LaporanAset::where('id',$request->id)->get();
+
+        } else{
+
+            $assets = LaporanAset::get();
+        }
+        return view('laporan/index')->with(['assets' => $assets]);
+    }  
+
+    public function index_self()
+    {
+        $assets = LaporanAset::where('pengaju_id',auth()->user()->id)->get();
         return view('laporan/index')->with(['assets' => $assets]);
     }
 
@@ -26,7 +39,7 @@ class LaporanAsetController extends Controller
         $validate = [
                     'nama_pengaju' => "required|string",
                     'unit_kerja' => "required|string",
-                    'judul_laporan' => "required|exists:\App\Models\Aset,id",
+                    'judul_laporan' => "required",
                     'tanggal' => "required|string",
                     'file' => "max:5300|mimes:pdf,doc,docx,jpg,rtf",
                     'keterangan' => "nullable|string",
@@ -36,7 +49,7 @@ class LaporanAsetController extends Controller
 
         LaporanAset::create($this->params($request));
 
-        return redirect()->route('pengajuan.aset')->with(['message_success' => 'Berhasil menambahkan pengajuan']);
+        return redirect()->route('pengajuan.laporan')->with(['message_success' => 'Berhasil menambahkan laporan']);
     }
 
     public function edit($id)
@@ -48,7 +61,7 @@ class LaporanAsetController extends Controller
 
     public function detail($id)
     {
-        $data = LaporanAset::where('id',$id)->first();
+        $data = LaporanAset::where('id',$id)->firstOrFail();
         $aset = Aset::orderBy('nama_barang','ASC')->get();
         return view('laporan/detail')->with(['data' => $data,'aset_list' => $aset]);
     }
@@ -57,13 +70,13 @@ class LaporanAsetController extends Controller
     public function acc($id)
     {
         LaporanAset::where('id',$id)->update(['is_acc' => 1,'accessor_id' => auth()->user()->id]);
-        return redirect()->route('pengajuan.aset')->with(['message_success' => 'Berhasil menerima pengajuan']);
+        return redirect()->route('pengajuan.laporan')->with(['message_success' => 'Berhasil menerima laporan']);
     }
 
     public function tolak($id)
     {
        LaporanAset::where('id',$id)->update(['is_acc' => 2,'accessor_id' => auth()->user()->id]);
-        return redirect()->route('pengajuan.aset')->with(['message_success' => 'Berhasil menolak pengajuan']);
+        return redirect()->route('pengajuan.laporan')->with(['message_success' => 'Berhasil menolak laporan']);
     }
 
     public function update(Request $request)
@@ -72,16 +85,21 @@ class LaporanAsetController extends Controller
                     'id' => "required|exists:\App\Models\PermintaanAset,id",
                     'nama_pengaju' => "required|string",
                     'unit_kerja' => "required|string",
-                    'asset_id' => "required|exists:\App\Models\Aset,id",
-                    'jumlah' => "required|numeric",
-                    'kepentingan' => "required|string",
+                    'judul_laporan' => "required",
+                    'tanggal' => "required|string",
+                    'file' => "nullable|max:5300|mimes:pdf,doc,docx,jpg,rtf",
                     'keterangan' => "nullable|string",
                     ];
         $this->validate($request, $validate);
 
-        LaporanAset::where('id',$request->id)->update($this->params($request));
+        LaporanAset::where('id',$request->id)->update($this->params($request,true));
 
         return redirect()->back()->with(['message_success' => 'Berhasil mengubah  pengajuan']);
+    }
+    public function download($file)
+    {
+        $laporan = LaporanAset::where('file',$file)->first();
+        return response()->download(storage_path('laporan_aset/'.$laporan->file), $laporan->file);
     }
     public function delete($id)
     {
@@ -91,7 +109,7 @@ class LaporanAsetController extends Controller
 
         return redirect()->back()->with(['message_success' => 'Berhasil menghapus pengajuan']);
     }
-    private function params($request)
+    private function params($request,$is_update=false)
     {
         $params = [
             'nama_pengaju' => $request->nama_pengaju,
@@ -99,12 +117,22 @@ class LaporanAsetController extends Controller
             'judul_laporan' => $request->judul_laporan,
             'tanggal' => $request->tanggal,
             
+            
             'keterangan' => $request->keterangan,
             'updated_by' => auth()->user()->id,
         ];
-        if(empty($request->file))
+        if(!$is_update)
         {
-            $params['file']  = $request->file;
+            $params['pengaju_id'] = auth()->user()->id;
+        }
+        if(!empty($request->file))
+        {
+            $file = $request->file('file');
+ 
+            $nama_file ="LAPORAN-ASET_ISBI_".md5(auth()->user()->id.time()).".".$file->getClientOriginalExtension();
+     
+            $file->move(storage_path('laporan_aset'),$nama_file);
+            $params['file']  = $nama_file;
         }
         return $params;
     }

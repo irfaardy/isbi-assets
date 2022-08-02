@@ -99,7 +99,62 @@
         </div>
       </li> --}}
       <!-- Notifications Dropdown Menu -->
-      
+      <li class="nav-item dropdown">
+
+            <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="false">
+            <i class="far fa-bell"></i>
+            <span class="badge badge-danger navbar-badge">
+              @if(auth()->user()->role == 'admin')
+              {{count(NotifHelpers::getPermintaanAset() ) }} 
+              @endif 
+              @if(auth()->user()->role == 'ketua_upt') 
+                {{count(NotifHelpers::getLaporanAset())}} 
+              @endif
+        </span>
+            </a>
+            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right" style="left: inherit; right: 0px;">
+            @if(auth()->user()->role == 'admin')
+            @foreach(NotifHelpers::getPermintaanAset() as $nf)
+            <a href="{{route('pengajuan.aset',['id' => $nf->id])}}" class="dropdown-item">
+
+            <div class="media">
+            <img src="" alt="" class="img-size-50 mr-3 img-circle">
+            <div class="media-body">
+            <h3 class="dropdown-item-title">
+            Pengajuan Aset dari {{$nf->nama_pengaju}}
+           
+            </h3>
+            <p class="text-sm">ingin mengajukan aset {{$nf->aset->nama_barang}}</p>
+            <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> {{$nf->created_at}}</p>
+            </div>
+            </div>
+
+            </a>
+            <div class="dropdown-divider"></div>
+            @endforeach
+            @endif
+            @if(auth()->user()->role == 'ketua_upt')
+            @foreach(NotifHelpers::getLaporanAset() as $nf)
+            <a href="{{route('pengajuan.laporan',['id' => $nf->id])}}" class="dropdown-item">
+
+            <div class="media">
+            <img src="" alt="" class="img-size-50 mr-3 img-circle">
+            <div class="media-body">
+            <h3 class="dropdown-item-title">
+            Laporan Aset dari {{$nf->nama_pengaju}}
+           
+            </h3>
+            <p class="text-sm">ingin mengajukan Laporan Aset {{Str::limit($nf->judul_laporan,20)}}</p>
+            <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> {{$nf->created_at}}</p>
+            </div>
+            </div>
+
+            </a>
+            <div class="dropdown-divider"></div>
+            @endforeach
+            @endif
+            </div>
+            </li>
       <li class="nav-item">
         <a href="{{route('logout')}}"  class="nav-link" onclick="event.preventDefault();
           document.getElementById('l-out').submit();">

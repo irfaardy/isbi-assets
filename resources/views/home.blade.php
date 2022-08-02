@@ -6,7 +6,7 @@
            <div class="col-lg-4 col-6">
              <div class="small-box bg-info">
                <div class="inner">
-                 <h3>150</h3>
+                 <h3>{{number_format($AsetMasuk)}}</h3>
                  <p>Aset Masuk</p>
                </div>
                <div class="icon">
@@ -19,7 +19,7 @@
            <div class="col-lg-4 col-6">
              <div class="small-box bg-success">
                <div class="inner">
-                 <h3>53 <sup style="font-size: 20px">%</sup>
+                 <h3>{{number_format($AsetKeluar)}}
                  </h3>
                  <p>Aset Keluar</p>
                </div>
@@ -33,7 +33,7 @@
            <div class="col-lg-4 col-6">
              <div class="small-box bg-warning">
                <div class="inner">
-                 <h3>44</h3>
+                 <h3>{{number_format($permintaan_aset)}}</h3>
                  <p>Permintaan Aset</p>
                </div>
                <div class="icon">

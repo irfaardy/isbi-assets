@@ -37,7 +37,6 @@
 	<div class="col-md-6">
 	</div>
 	<div class="col-md-6">
-		 @if(auth()->user()->role == 'admin')
 		@if($data->is_acc != 1)
 			<div class="row">
 				<div class="col-md-6">
@@ -48,7 +47,6 @@
 						<a href="{{route('pengajuan.aset.tolak',['id' => $data->id])}}" class="btn btn-danger btn-block">Tolak</a>
 				</div>
 			</div>
-		@endif
 		@endif
 	</div>
 </div>

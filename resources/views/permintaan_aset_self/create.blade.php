@@ -1,7 +1,7 @@
 @extends('layouts.master_dashboard')
 @section('title','Tambahkan Data Aset')
 @section('content')
-<form action="{{route('pengajuan.laporan.save')}}" method="POST" enctype="multipart/form-data">
+<form action="{{route('pengajuan.aset.save')}}" method="POST">
 	@csrf
 	<div class="row">
 		<div class="col-md-12 col-sm-12">
@@ -11,19 +11,23 @@
 		<div class="col-md-12 col-sm-12">
 			<label>Unit Kerja</label>
 			<input class="form-control" type="text" name="unit_kerja" required>
-		</div>	
-		<div class="col-md-12 col-sm-12">
-			<label>Tanggal</label>
-			<input class="form-control" type="date" name="tanggal" required>
 		</div>
 		<div class="col-md-12 col-sm-12">
-			<label>Judul Laporan</label>
-			<input class="form-control" type="text" name="judul_laporan" required>
+			<label>Nama Barang</label>
+			<select class="select2 form-control" name="asset_id">
+				@foreach($aset as $a)
+				<option value="{{$a->id}}">{{$a->kode_barang}} - {{$a->nama_barang}}</option>
+				@endforeach
+			</select>
 		</div>
 		
 		<div class="col-md-6 col-sm-12">
-			<label>File Laporan</label>
-			<input class="form-control" type="file" name="file" required>
+			<label>Jumlah</label>
+			<input class="form-control" type="number" name="jumlah" required>
+		</div>
+		<div class="col-md-12 col-sm-12">
+			<label>Kepentingan</label>
+			<textarea class="form-control"  name="kepentingan" required></textarea>
 		</div>
 		<div class="col-md-12 col-sm-12">
 			<label>Keterangan</label>

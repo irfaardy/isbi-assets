@@ -48,6 +48,8 @@
               </li>
             </ul>
           </li> 
+          @endif
+         @if(auth()->user()->role == 'unit_kerja' || auth()->user()->role == 'admin')
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-truck-loading"></i>
@@ -57,20 +59,32 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
+              @if(auth()->user()->role == 'admin')
               <li class="nav-item">
                 <a href="{{route('pengajuan.aset')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Data Permintaan Aset</p>
                 </a>
               </li>
+              @endif
+                @if(auth()->user()->role == 'unit_kerja')
               <li class="nav-item">
                 <a href="{{route('pengajuan.aset.create')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Form Permintaan Aset</p>
                 </a>
               </li> 
+               <li class="nav-item">
+                <a href="{{route('pengajuan.aset.self')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Pengajuan aset Saya</p>
+                </a>
+              </li> 
+               @endif
             </ul>
           </li>
+          @endif
+          @if(auth()->user()->role == 'ketua_upt' || auth()->user()->role == 'admin')
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-clipboard-list"></i>
@@ -80,21 +94,32 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
+               @if(auth()->user()->role == 'ketua_upt')
               <li class="nav-item">
                 <a href="{{route('pengajuan.laporan')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Data Laporan Aset</p>
                 </a>
               </li>
+              @endif
+              @if(auth()->user()->role == 'admin')
               <li class="nav-item">
                 <a href="{{route('pengajuan.laporan.create')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Ajukan Laporan Aset</p>
                 </a>
+              </li>  
+              <li class="nav-item">
+                <a href="{{route('pengajuan.laporan.self')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Laporan Saya</p>
+                </a>
               </li> 
+              @endif
             </ul>
           </li>
           @endif
+      
            
         </ul>
       </nav>

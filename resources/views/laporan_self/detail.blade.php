@@ -23,32 +23,30 @@
 		{{$data->unit_kerja}}
 	</div>
 	<div class="col-md-12">
-		<b>Nama Barang</b><br>
-		{{$data->aset->kode_barang}} - {{$data->aset->nama_barang}}
-	</div>
-	<div class="col-md-12">
-		<b>Kepentingan</b><br>
-		<pre>{{$data->kepentingan}}</pre>
+		<b>Judul Laporan</b><br>
+		{{$data->judul_laporan}} 
 	</div>
 	<div class="col-md-12">
 		<b>Keterangan</b><br>
 		<pre>{{$data->keterangan}}</pre>
 	</div>
+	<div class="col-md-12">
+		<b>File</b><br>
+		<a href="{{route('laporan.aset.download',['file' => $data->file])}}" class="btn btn-success">Download</a> 
+	</div>
 	<div class="col-md-6">
 	</div>
 	<div class="col-md-6">
-		 @if(auth()->user()->role == 'admin')
 		@if($data->is_acc != 1)
 			<div class="row">
 				<div class="col-md-6">
-					<a href="{{route('pengajuan.aset.acc',['id' => $data->id])}}" class="btn btn-success btn-block">Setuju</a>
+					<a href="{{route('pengajuan.laporan.acc',['id' => $data->id])}}" class="btn btn-success btn-block">Setuju</a>
 								
 				</div>
 				<div class="col-md-6">
-						<a href="{{route('pengajuan.aset.tolak',['id' => $data->id])}}" class="btn btn-danger btn-block">Tolak</a>
+						<a href="{{route('pengajuan.laporan.tolak',['id' => $data->id])}}" class="btn btn-danger btn-block">Tolak</a>
 				</div>
 			</div>
-		@endif
 		@endif
 	</div>
 </div>
