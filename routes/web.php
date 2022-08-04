@@ -51,7 +51,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
     Route::get('/aset-keluar/delete/{id}', [App\Http\Controllers\AsetKeluarController::class, 'delete'])->name('data.aset.keluar.delete');
     //ASET MASUK
     Route::get('/permintaan-aset', [App\Http\Controllers\PermintaanAsetController::class, 'index'])->name('pengajuan.aset');
-    Route::get('/permintaan-aset-self', [App\Http\Controllers\PermintaanAsetController::class, 'index'])->name('pengajuan.aset.self');
+    Route::get('/permintaan-aset-self', [App\Http\Controllers\PermintaanAsetController::class, 'index_self'])->name('pengajuan.aset.self');
     Route::get('/permintaan-aset/pengajuan', [App\Http\Controllers\PermintaanAsetController::class, 'create'])->name('pengajuan.aset.create');
     Route::post('/permintaan-aset/save', [App\Http\Controllers\PermintaanAsetController::class, 'save'])->name('pengajuan.aset.save');
     Route::post('/permintaan-aset/update', [App\Http\Controllers\PermintaanAsetController::class, 'update'])->name('pengajuan.aset.update');

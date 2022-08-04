@@ -5,13 +5,13 @@ use App\Models\LaporanAset;
 
 class NotifHelpers 
 {
-	function getPermintaanAset()
+	static function getPermintaanAset()
 	{
 		$permintaan = PermintaanAset::where('is_acc',0)->get();
 
 		return $permintaan;
 	}
-	function getLaporanAset()
+	static function getLaporanAset()
 	{
 		$permintaan = LaporanAset::where('is_acc',0)->get();
 
