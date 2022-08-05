@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\PermintaanAset;
+use App\Models\Aset;
 use App\Models\AsetMasuk;
 use App\Models\AsetKeluar;
+use App\Models\LaporanAset;
 
 class HomeController extends Controller
 {
@@ -28,7 +30,9 @@ class HomeController extends Controller
     {
         $PermintaanAsetCount = PermintaanAset::count();
         $AsetMasuk = AsetMasuk::count();
+        $LaporanAset = LaporanAset::count();
         $AsetKeluar = AsetKeluar::count();
-        return view('home')->with(['permintaan_aset' => $PermintaanAsetCount,'AsetMasuk' => $AsetMasuk,'AsetKeluar' => $AsetKeluar]);
+        $DataAset = Aset::count();
+        return view('home')->with(['permintaan_aset' => $PermintaanAsetCount,'AsetMasuk' => $AsetMasuk,'LaporanAset' => $LaporanAset,'AsetKeluar' => $AsetKeluar,'DataAset' => $DataAset]);
     }
 }

@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css" integrity="sha512-q3eWabyZPc1XTCmF+8/LuE1ozpg5xxn7iO89yfSOd5/oKvyqLngoNGsx8jq92Y8eXJ/IRxQbEC+FGSYxtk2oiw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <!-- Theme style -->
 
- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/3.2.0/css/adminlte.min.css" integrity="sha512-IuO+tczf4J43RzbCMEFggCWW5JuX78IrCJRFFBoQEXNvGI6gkUw4OjuwMidiS4Lm9Q2lILzpJwZuMWuSEeT9UQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/3.2.0/css/adminlte.min.css" integrity="sha512-IuO+tczFf4J43RzbCMEFggCWW5JuX78IrCJRFFBoQEXNvGI6gkUw4OjuwMidiS4Lm9Q2lILzpJwZuMWuSEeT9UQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/css/dataTables.bootstrap.min.css" integrity="sha512-BMbq2It2D3J17/C7aRklzOODG1IQ3+MHw3ifzBHMBwGO/0yUqYmsStgBjI0z5EYlaDEFnvYV7gNYdD3vFLRKsA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/css/dataTables.bootstrap4.min.css" integrity="sha512-PT0RvABaDhDQugEbpNMwgYBCnGCiTZMh9yOzUsJHDgl/dMhD9yjHAwoumnUk3JydV3QTcIkNDuN40CJxik5+WQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/css/jquery.dataTables.min.css" integrity="sha512-1k7mWiTNoyx2XtmI96o+hdjP8nn0f3Z2N4oF/9ZZRgijyV4omsKOXEnqL1gKQNPy2MTSP9rIEWGcH/CInulptA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -29,10 +29,7 @@
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="../../index3.html" class="nav-link">Home</a>
-      </li>
-      <li class="nav-item d-none d-sm-inline-block">
-        <a href="#" class="nav-link">Contact</a>
+        <a href="#" class="nav-link">Tanggal : {{date('d/M/Y')}} | IP : {{Request::ip()}}</a>
       </li>
     </ul>
 
@@ -155,36 +152,42 @@
             @endif
             </div>
             </li>
-      <li class="nav-item">
-        <a href="{{route('logout')}}"  class="nav-link" onclick="event.preventDefault();
-          document.getElementById('l-out').submit();">
-          <i class="fas fa-sign-out-alt"></i>
-        </a>
-         <form
+            <li class="nav-item dropdown show">
+                <a class="nav-link" data-toggle="dropdown" href="#" aria-expended="true" aria-expanded="true"><img src="{{asset('assets/img/default.jpg')}}" height="20px" class="img-circle elevation-2 mr-2" >
+                Hi,
+                {{auth()->user()->name}}
+                <i class="fas fa-angle-down"></i>
+                </a><div class="dropdown-menu dropdown-menu-right " style="left: inherit; right: 0px;">
+              
+               <a href="{{route('logout')}}"  class="nav-link" onclick="event.preventDefault();
+          document.getElementById('l-out').submit();"><i class="fas fa-sign-out-alt"></i>
+                Logout
+                </a><form
                             id="l-out"
                             action="{{ route('logout') }}"
                             method="POST"
                             style="display: none;">
                             @csrf
-                        </form>
-      </li>
+                        </form></div>
+                      </li>
+      
      
     </ul>
   </nav>
   <!-- /.navbar -->
 
   <!-- Main Sidebar Container -->
-  <aside class="main-sidebar sidebar-light-lightblue elevation-4">
+  <aside class="main-sidebar sidebar-dark-lightblue elevation-4" style="background-color:#00034E;">
     <!-- Brand Logo -->
-    <a href="../../index3.html" class="brand-link">
+    <a  href="../../index3.html" class="brand-link" style="background-color:#FFF;">
       <img src="{{asset('assets/logo/logo.png')}}" alt="" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light">Manajemen Aset</span>
+      <span class="text-dark brand-text font-weight-light">Manajemen Aset</span>
     </a>
 
     <!-- Sidebar -->
     <div class="sidebar">
       <!-- Sidebar user (optional) -->
-      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+      {{-- <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
           <img src="{{asset('assets/img/default.jpg')}}" class="img-circle elevation-2" >
         </div>
@@ -192,7 +195,7 @@
           <a href="#" class="d-block">{{auth()->user()->name}}</a>
         </div>
       </div>
-
+ --}}
       <!-- SidebarSearch Form -->
       
 
