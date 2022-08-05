@@ -14,11 +14,19 @@
 		</div>
 		<div class="col-md-6 col-sm-12">
 			<label>Kategori</label>
-			<input class="form-control" type="text" name="kategori" required>
+			<select class="select2 form-control" name="kategori">
+				@foreach($kategori as $a)
+				<option value="{{$a->id}}">{{$a->kode_kategori}} - {{$a->name}}</option>
+				@endforeach
+			</select>
 		</div>
 		<div class="col-md-6 col-sm-12">
 			<label>Jenis</label>
-			<input class="form-control" type="text" name="jenis" required>
+			<select class="select2 form-control" name="jenis">
+				@foreach($jenis as $a)
+				<option value="{{$a->id}}">{{$a->kode_jenis}} - {{$a->name}}</option>
+				@endforeach
+			</select>
 		</div>
 		<div class="col-md-6 col-sm-12">
 			<label>Jumlah</label>

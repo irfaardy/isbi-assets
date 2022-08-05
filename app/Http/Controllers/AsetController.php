@@ -3,6 +3,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Aset;
+use App\Models\Kategori;
+use App\Models\Jenis;
 use App\Imports\AsetImport;
 use Hash;
 class AsetController extends Controller
@@ -17,7 +19,9 @@ class AsetController extends Controller
 
     public function create()
     {
-        return view('admin/aset/create');
+        $kategori = Kategori::orderBy('name','ASC')->get();
+        $jenis = Jenis::orderBy('name','ASC')->get();
+        return view('admin/aset/create')->with(['kategori' => $kategori,'jenis' => $jenis]);
     }
 
     public function save(Request $request)
@@ -56,8 +60,10 @@ class AsetController extends Controller
     }
     public function edit($id)
     {
+        $kategori = Kategori::orderBy('name','ASC')->get();
+        $jenis = Jenis::orderBy('name','ASC')->get();
         $assets = Aset::where('id',$id)->first();
-        return view('admin/aset/edit')->with(['assets' => $assets]);
+        return view('admin/aset/edit')->with(['assets' => $assets,'kategori' => $kategori,'jenis' => $jenis]);
     }
 
     public function update(Request $request)

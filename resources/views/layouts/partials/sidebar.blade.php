@@ -12,7 +12,7 @@
             </a>
           </li> 
       
-          @if(auth()->user()->role == 'admin')
+          @if(auth()->user()->role == 'admin' || auth()->user()->role == 'ketua_upt')
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-database"></i>
@@ -40,12 +40,26 @@
                   <p>Data Aset</p>
                 </a>
               </li> 
+                 @if(auth()->user()->role == 'admin')
               <li class="nav-item">
                 <a href="{{route('pengguna')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Data User</p>
                 </a>
+              </li> 
+              <li class="nav-item">
+                <a href="{{route('kategori.aset')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Data Kategori</p>
+                </a>
               </li>
+              <li class="nav-item">
+                <a href="{{route('jenis.aset')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Data Jenis</p>
+                </a>
+              </li>
+              @endif
             </ul>
           </li> 
           @endif

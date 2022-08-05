@@ -22,5 +22,13 @@ class Aset extends Model
         'jumlah',
         'updated_by',
     ];
+    public function kategoritb()
+    {
+        return $this->belongsTo(Kategori::class, 'kategori');
+    }
+    public function jenistb()
+    {
+        return $this->belongsTo(Jenis::class, 'jenis');
+    }
 
 }

@@ -18,7 +18,7 @@ Route::get('/', function () {
 });
 
 Auth::routes();
-
+Route::group(['middleware' => ['auth']], function () {
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 //Pengguna
@@ -34,7 +34,22 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
     Route::post('/aset/update', [App\Http\Controllers\AsetController::class, 'update'])->name('data.aset.update');
     Route::get('/aset/edit/{id}', [App\Http\Controllers\AsetController::class, 'edit'])->name('data.aset.edit');
     Route::get('/aset/delete/{id}', [App\Http\Controllers\AsetController::class, 'delete'])->name('data.aset.delete'); 
-    Route::post('/aset/import-progress', [App\Http\Controllers\AsetController::class, 'import'])->name('data.aset.import'); 
+    Route::post('/aset/import-progress', [App\Http\Controllers\AsetController::class, 'import'])->name('data.aset.import');  
+
+    //ASET
+    Route::get('/kategori', [App\Http\Controllers\KategoriController::class, 'index'])->name('kategori.aset');
+    Route::get('/kategori/create', [App\Http\Controllers\KategoriController::class, 'create'])->name('kategori.aset.create');
+    Route::post('/kategori/save', [App\Http\Controllers\KategoriController::class, 'save'])->name('kategori.aset.save');
+    Route::post('/kategori/update', [App\Http\Controllers\KategoriController::class, 'update'])->name('kategori.aset.update');
+    Route::get('/kategori/edit/{id}', [App\Http\Controllers\KategoriController::class, 'edit'])->name('kategori.aset.edit');
+    Route::get('/kategori/delete/{id}', [App\Http\Controllers\KategoriController::class, 'delete'])->name('kategori.aset.delete');   
+    //ASET
+    Route::get('/jenis', [App\Http\Controllers\JenisController::class, 'index'])->name('jenis.aset');
+    Route::get('/jenis/create', [App\Http\Controllers\JenisController::class, 'create'])->name('jenis.aset.create');
+    Route::post('/jenis/save', [App\Http\Controllers\JenisController::class, 'save'])->name('jenis.aset.save');
+    Route::post('/jenis/update', [App\Http\Controllers\JenisController::class, 'update'])->name('jenis.aset.update');
+    Route::get('/jenis/edit/{id}', [App\Http\Controllers\JenisController::class, 'edit'])->name('jenis.aset.edit');
+    Route::get('/jenis/delete/{id}', [App\Http\Controllers\JenisController::class, 'delete'])->name('jenis.aset.delete'); 
     //ASET MASUK
     Route::get('/aset-masuk', [App\Http\Controllers\AsetMasukController::class, 'index'])->name('data.aset.masuk');
     Route::get('/aset-masuk/create', [App\Http\Controllers\AsetMasukController::class, 'create'])->name('data.aset.masuk.create');
@@ -74,3 +89,4 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
     
     Route::get('/laporan-aset/detail/{id}', [App\Http\Controllers\LaporanAsetController::class, 'detail'])->name('pengajuan.laporan.detail');
     Route::get('/laporan-aset/download/{file}', [App\Http\Controllers\LaporanAsetController::class, 'download'])->name('laporan.aset.download');
+});

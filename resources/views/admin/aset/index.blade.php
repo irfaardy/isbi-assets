@@ -34,8 +34,8 @@
 						<tr>
 							<td>{{$dt->kode_barang}}</td>
 							<td>{{$dt->nama_barang}}</td>
-							<td>{{$dt->kategori}}</td>
-							<td>{{$dt->jenis}}</td>
+							<td>{{empty($dt->kategoritb) ? "-":$dt->kategoritb->name}}</td>
+							<td>{{empty($dt->jenistb) ? "-":$dt->jenistb->name}}</td>
 							<td>{{$dt->jumlah}}</td>
 								@if(auth()->user()->role == 'admin')
 							<td>
