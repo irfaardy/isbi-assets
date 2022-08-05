@@ -26,7 +26,7 @@ class PermintaanAsetController extends Controller
     public function index_self()
     {
         $assets = PermintaanAset::where('pengaju_id',auth()->user()->id)->get();
-        return view('permintaan_aset/index')->with(['assets' => $assets]);
+        return view('permintaan_aset_self/index')->with(['assets' => $assets]);
     }
     public function create()
     {

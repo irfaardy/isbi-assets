@@ -36,6 +36,7 @@
 	</div>
 	<div class="col-md-6">
 	</div>
+	@if(auth()->user()->role == 'ketua_upt')
 	<div class="col-md-6">
 		@if($data->is_acc != 1)
 			<div class="row">
@@ -49,6 +50,7 @@
 			</div>
 		@endif
 	</div>
+	@endif
 </div>
 
 @endsection

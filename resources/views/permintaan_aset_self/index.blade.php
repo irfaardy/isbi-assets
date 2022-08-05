@@ -4,13 +4,7 @@
 @section('content')
 	<div class="row">
 		
-		<div class="col-md-6">
-			<div class="row">
-				<div class="col-sm-12 col-md-6">
-					<a href="#" data-toggle="modal" data-target="#export" class="btn btn-primary btn-block">Export data</a>
-				</div>
-			</div>
-		</div>
+		
 		<div class="col-12">
 			<hr>
 			<div class="table-responsive">
@@ -39,13 +33,14 @@
 									<span class="badge badge-secondary">Menunggu</span>
 								@elseif($dt->is_acc == 1)
 									<span class="badge badge-success">Disetujui</span>
+									<br><small>Oleh:  {{$dt->accessor->name}}</small>
 								@elseif($dt->is_acc == 2)
 									<span class="badge badge-danger">Ditolak</span>
 								@endif
 							</td>
 							<td>
 							
-								<a href="{{route('pengajuan.laporan.detail',['id' => $dt->id])}}" class="btn btn-primary">Detail</a>
+								<a href="{{route('pengajuan.aset.details',['id' => $dt->id])}}" class="btn btn-primary">Detail</a>
 								@if($dt->is_acc != 1)
 								<a href="{{route('pengajuan.aset.edit',['id' => $dt->id])}}" class="btn btn-warning">Edit</a>
 							

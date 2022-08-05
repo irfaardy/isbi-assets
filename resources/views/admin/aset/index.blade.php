@@ -1,9 +1,10 @@
 
 @extends('layouts.master_dashboard')
-@section('title','Kelola Aset')
+@section('title','Data Aset')
 @section('content')
 	<div class="row">
 		<div class="col-md-6">
+			@if(auth()->user()->role == 'admin')
 			<div class="row">
 				<div class="col-sm-12 col-md-6">
 					<a href="{{route('data.aset.create')}}" class="btn btn-primary btn-block">Tambah data aset</a>
@@ -12,6 +13,7 @@
 					<a href="#" class="btn btn-success btn-block"  data-toggle="modal" data-target="#import" >Import Data</a>
 				</div>
 			</div>
+			@endif
 		</div>
 		<div class="col-12">
 			<hr>
@@ -23,7 +25,9 @@
 						<th>kategori</th>
 						<th>jenis</th>
 						<th>jumlah</th>
+						@if(auth()->user()->role == 'admin')
 						<th>aksi</th>
+						@endif
 					</thead>
 					<tbody>
 						@foreach($assets as $dt)
@@ -33,10 +37,12 @@
 							<td>{{$dt->kategori}}</td>
 							<td>{{$dt->jenis}}</td>
 							<td>{{$dt->jumlah}}</td>
+								@if(auth()->user()->role == 'admin')
 							<td>
 								<a href="{{route('data.aset.edit',['id' => $dt->id])}}" class="btn btn-warning">Edit</a>
 								<a href="{{route('data.aset.delete',['id' => $dt->id])}}" class="btn btn-danger">Hapus</a>
 							</td>
+							@endif
 						</tr>
 						@endforeach
 					</tbody>
