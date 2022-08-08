@@ -1,8 +1,9 @@
 
 @extends('layouts.master_dashboard')
-@section('title','Kelola Aset Masuk')
+@section('title','Data Aset Masuk')
 @section('content')
 	<div class="row">
+		@if(auth()->user()->role == 'admin')
 		<div class="col-md-6">
 			<div class="row">
 				<div class="col-sm-12 col-md-6">
@@ -10,6 +11,7 @@
 				</div>
 			</div>
 		</div>
+		@endif
 		<div class="col-12">
 			<hr>
 			<div class="table-responsive">
@@ -21,8 +23,12 @@
 						<th>nama barang</th>
 						<th>kategori</th>
 						<th>jenis</th>
+						<th>Harga barang</th>
 						<th>jumlah</th>
+						<th>Total</th>
+						@if(auth()->user()->role == 'admin')
 						<th>aksi</th>
+						@endif
 					</thead>
 					<tbody>
 						<?php $i = 1; ?>
@@ -34,11 +40,15 @@
 							<td>{{$dt->aset->nama_barang}}</td>
 							<td>{{$dt->aset->kategori}}</td>
 							<td>{{$dt->aset->jenis}}</td>
+							<td>Rp{{number_format($dt->harga)}}</td>
 							<td>{{$dt->jumlah}}</td>
+							<td>Rp{{number_format($dt->jumlah * $dt->harga)}}</td>
+							@if(auth()->user()->role == 'admin')
 							<td>
 								<a href="{{route('data.aset.masuk.edit',['id' => $dt->id])}}" class="btn btn-warning">Edit</a>
 								<a href="{{route('data.aset.masuk.delete',['id' => $dt->id])}}" class="btn btn-danger">Hapus</a>
 							</td>
+							@endif
 						</tr>
 						@endforeach
 					</tbody>

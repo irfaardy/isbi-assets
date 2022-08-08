@@ -20,6 +20,7 @@ class Aset extends Model
         'kategori',
         'jenis',
         'jumlah',
+        'harga',
         'updated_by',
     ];
     public function kategoritb()

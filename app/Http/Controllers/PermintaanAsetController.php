@@ -49,7 +49,7 @@ class PermintaanAsetController extends Controller
 
         PermintaanAset::create($this->params($request));
 
-        return redirect()->route('pengajuan.aset')->with(['message_success' => 'Berhasil menambahkan pengajuan']);
+        return redirect()->route('pengajuan.aset.self')->with(['message_success' => 'Berhasil menambahkan pengajuan']);
     }
 
     public function edit($id)
@@ -91,8 +91,12 @@ class PermintaanAsetController extends Controller
          return \Excel::download(new PermintaanAsetExport($PermintaanAset,$range,$tipe), 'ISBI-PERMINTAAN-ASET_'.$tipe."_".str_replace("/", "", $range).'.xlsx');
     }
 
-    public function detail($id)
+    public function detail($id,Request $request)
     {
+        if(auth()->user()->role == 'unit_kerja' AND !empty($request->notif_id))
+        {
+            \NotifHelpers::setRead($request->notif_id);
+        }
         $data = PermintaanAset::where('id',$id)->firstOrFail();
         $aset = Aset::orderBy('nama_barang','ASC')->get();
         return view('permintaan_aset/detail')->with(['data' => $data,'aset_list' => $aset]);
@@ -102,12 +106,16 @@ class PermintaanAsetController extends Controller
     public function acc($id)
     {
         PermintaanAset::where('id',$id)->update(['is_acc' => 1,'accessor_id' => auth()->user()->id]);
+         $asset = PermintaanAset::where('id',$id)->first();
+        \NotifHelpers::addNotif($asset->pengaju_id,'Pengajuan aset barang '.$asset->aset->nama_barang.' diterima',route('pengajuan.aset.details',['id' => $id]));
         return redirect()->route('pengajuan.aset')->with(['message_success' => 'Berhasil menerima pengajuan']);
     }
 
     public function tolak($id)
     {
        PermintaanAset::where('id',$id)->update(['is_acc' => 2,'accessor_id' => auth()->user()->id]);
+         $asset = LaporanAset::where('id',$id)->first();
+        \NotifHelpers::addNotif($asset->pengaju_id,'Pengajuan aset barang '.$asset->aset->nama_barang.' ditolak',route('pengajuan.aset.details',['id' => $id]));
         return redirect()->route('pengajuan.aset')->with(['message_success' => 'Berhasil menolak pengajuan']);
     }
 

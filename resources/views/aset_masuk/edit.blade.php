@@ -17,7 +17,10 @@
 				@endforeach
 			</select>
 		</div>
-		
+		<div class="col-md-6 col-sm-12">
+			<label>Harga Barang satuan</label>
+			<input class="form-control" type="number" min="0" name="harga" value="{{$aset->harga}}">
+		</div>
 		<div class="col-md-6 col-sm-12">
 			<label>Jumlah</label>
 			<input class="form-control" type="number" value="{{$aset->jumlah}}" name="jumlah" required>

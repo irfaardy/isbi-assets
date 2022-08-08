@@ -28,7 +28,8 @@ class AsetImport implements ToModel, WithStartRow
             'nama_barang' => $row[1],
             'kategori' => $row[2],
             'jenis' => $row[3],
-            'jumlah' => $row[4],
+            'harga' => $row[4],
+            'jumlah' => $row[5],
         ]);
     }
 }

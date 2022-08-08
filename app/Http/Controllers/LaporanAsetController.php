@@ -49,7 +49,7 @@ class LaporanAsetController extends Controller
 
         LaporanAset::create($this->params($request));
 
-        return redirect()->route('pengajuan.laporan')->with(['message_success' => 'Berhasil menambahkan laporan']);
+        return redirect()->route('pengajuan.laporan.self')->with(['message_success' => 'Berhasil menambahkan laporan']);
     }
 
     public function edit($id)
@@ -59,8 +59,12 @@ class LaporanAsetController extends Controller
         return view('laporan/edit')->with(['data' => $data,'aset_list' => $aset]);
     }
 
-    public function detail($id)
+    public function detail($id,Request $request)
     {
+        if(auth()->user()->role == 'admin' AND !empty($request->notif_id))
+        {
+            \NotifHelpers::setRead($request->notif_id);
+        }
         $data = LaporanAset::where('id',$id)->firstOrFail();
         $aset = Aset::orderBy('nama_barang','ASC')->get();
         return view('laporan/detail')->with(['data' => $data,'aset_list' => $aset]);
@@ -70,12 +74,18 @@ class LaporanAsetController extends Controller
     public function acc($id)
     {
         LaporanAset::where('id',$id)->update(['is_acc' => 1,'accessor_id' => auth()->user()->id]);
+        $laporan = LaporanAset::where('id',$id)->first();
+        \NotifHelpers::addNotif($laporan->pengaju_id,'Laporan anda "'.$laporan->judul_laporan.'" diterima',route('pengajuan.laporan.detail',['id' => $id]));
         return redirect()->route('pengajuan.laporan')->with(['message_success' => 'Berhasil menerima laporan']);
     }
 
     public function tolak($id)
     {
        LaporanAset::where('id',$id)->update(['is_acc' => 2,'accessor_id' => auth()->user()->id]);
+        $laporan = LaporanAset::where('id',$id)->first();
+        \NotifHelpers::addNotif($laporan->pengaju_id,'Laporan anda "'.$laporan->judul_laporan.'"  ditolak',route('pengajuan.laporan.detail',['id' => $id]));
+       
+
         return redirect()->route('pengajuan.laporan')->with(['message_success' => 'Berhasil menolak laporan']);
     }
 

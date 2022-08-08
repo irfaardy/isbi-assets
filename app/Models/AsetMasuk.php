@@ -20,6 +20,7 @@ class AsetMasuk extends Model
         'jumlah',
         'jenis',
         'jumlah',
+        'harga',
     ];
 
      public function aset()

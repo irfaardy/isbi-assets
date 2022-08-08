@@ -1,5 +1,5 @@
 @extends('layouts.master_dashboard')
-@section('title','Tambahkan Data Aset')
+@section('title','Ajukan  Aset')
 @section('content')
 <form action="{{route('pengajuan.aset.save')}}" method="POST">
 	@csrf

@@ -29,6 +29,10 @@
 			</select>
 		</div>
 		<div class="col-md-6 col-sm-12">
+			<label>Harga Barang satuan</label>
+			<input class="form-control" type="number" min="0" name="harga">
+		</div>
+		<div class="col-md-6 col-sm-12">
 			<label>Jumlah</label>
 			<input class="form-control" type="number" name="jumlah" required>
 		</div>

@@ -32,6 +32,7 @@ class AsetController extends Controller
                     'kategori' => "required",
                     'jenis' => "required",
                     'jumlah' => "required|numeric",
+                   'harga' => "required|numeric",
                     ];
         // dd($request->password_confirmation." ".$request->password);
         $this->validate($request, $validate);
@@ -75,12 +76,13 @@ class AsetController extends Controller
                     'kategori' => "required",
                     'jenis' => "required",
                     'jumlah' => "required|numeric",
+                    'harga' => "required|numeric",
                     ];
         $this->validate($request, $validate);
 
         Aset::where('id',$request->id)->update($this->params($request));
 
-        return redirect()->back()->with(['message_success' => 'Berhasil mengubah data Pengguna']);
+        return redirect()->route('data.aset')->with(['message_success' => 'Berhasil mengubah data Pengguna']);
     }
     public function delete($id)
     {
@@ -98,6 +100,7 @@ class AsetController extends Controller
             'kategori' => $request->kategori,
             'jenis' => $request->jenis,
             'jumlah' => $request->jumlah,
+            'harga' => $request->harga,
         ];
         return $params;
     }

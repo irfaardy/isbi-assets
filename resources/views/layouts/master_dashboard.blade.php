@@ -103,15 +103,34 @@
             <i class="far fa-bell"></i>
             <span class="badge badge-danger navbar-badge">
               @if(auth()->user()->role == 'admin')
-              {{count(NotifHelpers::getPermintaanAset() ) }} 
+              {{(count(NotifHelpers::getPermintaanAset())+count(NotifHelpers::getNotif())) }} 
               @endif 
               @if(auth()->user()->role == 'ketua_upt') 
-                {{count(NotifHelpers::getLaporanAset())}} 
+                {{(count(NotifHelpers::getLaporanAset())+count(NotifHelpers::getNotif()))}} 
+              @endif 
+              @if(auth()->user()->role == 'unit_kerja') 
+                {{(count(NotifHelpers::getNotif()))}} 
               @endif
         </span>
             </a>
             <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right" style="left: inherit; right: 0px;">
+            @foreach(NotifHelpers::getNotif() as $nf)
+               <a href="{{$nf->url}}" class="dropdown-item">
+
+                <div class="media">
+                <img src="" alt="" class="img-size-50 mr-3 img-circle">
+                <div class="media-body">
+              
+                <p class="text-sm">{{$nf->text}}</p>
+                <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> {{$nf->created_at}}</p>
+                </div>
+                </div>
+
+                </a>
+                <div class="dropdown-divider"></div>
+            @endforeach
             @if(auth()->user()->role == 'admin')
+           
             @foreach(NotifHelpers::getPermintaanAset() as $nf)
             <a href="{{route('pengajuan.aset',['id' => $nf->id])}}" class="dropdown-item">
 

@@ -55,7 +55,7 @@ class AsetKeluarController extends Controller
 
         AsetKeluar::where('id',$request->id)->update($this->params($request));
 
-        return redirect()->back()->with(['message_success' => 'Berhasil mengubah  asset keluar']);
+        return redirect()->route('data.aset.keluar')->with(['message_success' => 'Berhasil mengubah  asset keluar']);
     }
     public function delete($id)
     {

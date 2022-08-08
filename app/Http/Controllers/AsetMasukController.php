@@ -27,6 +27,7 @@ class AsetMasukController extends Controller
                     'tanggal' => "required|date",
                     'asset_id' => "required|exists:\App\Models\Aset,id",
                     'jumlah' => "required|numeric",
+                    'harga' => "required|numeric",
                     ];
         // dd($request->password_confirmation." ".$request->password);
         $this->validate($request, $validate);
@@ -50,12 +51,13 @@ class AsetMasukController extends Controller
                     'tanggal' => "required|date",
                     'asset_id' => "required|exists:\App\Models\Aset,id",
                     'jumlah' => "required|numeric",
+                    'harga' => "required|numeric",
                     ];
         $this->validate($request, $validate);
 
         AsetMasuk::where('id',$request->id)->update($this->params($request));
 
-        return redirect()->back()->with(['message_success' => 'Berhasil mengubah  asset masuk']);
+        return redirect()->route('data.aset.masuk')->with(['message_success' => 'Berhasil mengubah  asset masuk']);
     }
     public function delete($id)
     {
@@ -71,6 +73,7 @@ class AsetMasukController extends Controller
             'tanggal' => $request->tanggal,
             'asset_id' => $request->asset_id,
             'jumlah' => $request->jumlah,
+            'harga' => $request->harga,
         ];
         return $params;
     }

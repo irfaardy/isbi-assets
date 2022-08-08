@@ -25,6 +25,8 @@
 						<th>kategori</th>
 						<th>jenis</th>
 						<th>jumlah</th>
+						<th>Harga</th>
+						<th>Total</th>
 						@if(auth()->user()->role == 'admin')
 						<th>aksi</th>
 						@endif
@@ -36,7 +38,9 @@
 							<td>{{$dt->nama_barang}}</td>
 							<td>{{empty($dt->kategoritb) ? "-":$dt->kategoritb->name}}</td>
 							<td>{{empty($dt->jenistb) ? "-":$dt->jenistb->name}}</td>
-							<td>{{$dt->jumlah}}</td>
+							<td>{{number_format($dt->jumlah)}}</td>
+							<td>Rp{{number_format($dt->harga)}}</td>
+							<td>Rp{{number_format($dt->jumlah*$dt->harga)}}</td>
 								@if(auth()->user()->role == 'admin')
 							<td>
 								<a href="{{route('data.aset.edit',['id' => $dt->id])}}" class="btn btn-warning">Edit</a>
