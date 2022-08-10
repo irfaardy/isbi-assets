@@ -49,15 +49,7 @@
                         <p>Data Aset</p>
                       </a>
                     </li> 
-                       @if(auth()->user()->role == 'admin')
-                    <li class="nav-item">
-                      <a href="{{route('pengguna')}}" class="nav-link">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>Data User</p>
-                      </a>
-                    </li> 
                   
-                    @endif  
 
                    
                   </ul>
