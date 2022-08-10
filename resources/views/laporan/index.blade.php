@@ -56,7 +56,7 @@
 @section('javascript')
 <script type="text/javascript">
 $(document).ready( function () {
-    $('#aset').DataTable();
+    $('#aset').DataTable({ "order": [[ 1, "asc" ]] });
 
 } );
 </script>

@@ -23,6 +23,7 @@
 						<th>nama barang</th>
 						<th>jumlah</th>
 						<th>Status</th>
+						<th>Req Date</th>
 						<th>aksi</th>
 					</thead>
 					<tbody>
@@ -43,6 +44,7 @@
 									<span class="badge badge-danger">Ditolak</span>
 								@endif
 							</td>
+							<td>{{$dt->created_at}}</td>
 							<td>
 							
 								<a href="{{route('pengajuan.aset.details',['id' => $dt->id])}}" class="btn btn-primary">Detail</a>
@@ -104,7 +106,7 @@
 @section('javascript')
 <script type="text/javascript">
 $(document).ready( function () {
-    $('#aset').DataTable();
+    $('#aset').DataTable({ "order": [[ 7, "asc" ]] });
 
 } );
 </script>
