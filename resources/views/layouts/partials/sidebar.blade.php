@@ -88,6 +88,12 @@
                                 <p>Data Jenis</p>
                               </a>
                             </li>
+                            <li class="nav-item">
+                              <a href="{{route('satuan.aset')}}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Data Satuan</p>
+                              </a>
+                            </li>
                           
                           </ul>
                             @endif

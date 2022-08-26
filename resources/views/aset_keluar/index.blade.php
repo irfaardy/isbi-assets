@@ -38,7 +38,7 @@
 							<td>{{$dt->aset->nama_barang}}</td>
 							<td>{{$dt->aset->kategori}}</td>
 							<td>{{$dt->aset->jenis}}</td>
-							<td>{{$dt->jumlah}}</td>
+							<td>{{$dt->jumlah}} {{empty($dt->aset->satuan)?null:$dt->aset->satuan->name}}</td>
 							@if(auth()->user()->role == 'admin')
 							<td>
 								<a href="{{route('data.aset.keluar.edit',['id' => $dt->id])}}" class="btn btn-warning">Edit</a>

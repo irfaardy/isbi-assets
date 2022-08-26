@@ -34,7 +34,8 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
     Route::post('/aset/update', [App\Http\Controllers\AsetController::class, 'update'])->name('data.aset.update');
     Route::get('/aset/edit/{id}', [App\Http\Controllers\AsetController::class, 'edit'])->name('data.aset.edit');
     Route::get('/aset/delete/{id}', [App\Http\Controllers\AsetController::class, 'delete'])->name('data.aset.delete'); 
-    Route::post('/aset/import-progress', [App\Http\Controllers\AsetController::class, 'import'])->name('data.aset.import');  
+    Route::post('/aset/import-progress', [App\Http\Controllers\AsetController::class, 'import'])->name('data.aset.import'); 
+    Route::post('/api/get/stock', [App\Http\Controllers\AsetController::class, 'stokCek'])->name('aset.getstock'); 
 
     //ASET
     Route::get('/kategori', [App\Http\Controllers\KategoriController::class, 'index'])->name('kategori.aset');
@@ -49,7 +50,15 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
     Route::post('/jenis/save', [App\Http\Controllers\JenisController::class, 'save'])->name('jenis.aset.save');
     Route::post('/jenis/update', [App\Http\Controllers\JenisController::class, 'update'])->name('jenis.aset.update');
     Route::get('/jenis/edit/{id}', [App\Http\Controllers\JenisController::class, 'edit'])->name('jenis.aset.edit');
-    Route::get('/jenis/delete/{id}', [App\Http\Controllers\JenisController::class, 'delete'])->name('jenis.aset.delete'); 
+    Route::get('/jenis/delete/{id}', [App\Http\Controllers\JenisController::class, 'delete'])->name('jenis.aset.delete');    
+    //ASET
+   
+    Route::get('/satuan', [App\Http\Controllers\SatuanController::class, 'index'])->name('satuan.aset');
+    Route::get('/satuan/create', [App\Http\Controllers\SatuanController::class, 'create'])->name('satuan.aset.create');
+    Route::post('/satuan/save', [App\Http\Controllers\SatuanController::class, 'save'])->name('satuan.aset.save');
+    Route::post('/satuan/update', [App\Http\Controllers\SatuanController::class, 'update'])->name('satuan.aset.update');
+    Route::get('/satuan/edit/{id}', [App\Http\Controllers\SatuanController::class, 'edit'])->name('satuan.aset.edit');
+    Route::get('/satuan/delete/{id}', [App\Http\Controllers\SatuanController::class, 'delete'])->name('satuan.aset.delete'); 
     //ASET MASUK
     Route::get('/aset-masuk', [App\Http\Controllers\AsetMasukController::class, 'index'])->name('data.aset.masuk');
     Route::get('/aset-masuk/create', [App\Http\Controllers\AsetMasukController::class, 'create'])->name('data.aset.masuk.create');

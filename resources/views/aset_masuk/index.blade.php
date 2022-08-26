@@ -41,7 +41,7 @@
 							<td>{{$dt->aset->kategori}}</td>
 							<td>{{$dt->aset->jenis}}</td>
 							<td>Rp{{number_format($dt->harga)}}</td>
-							<td>{{$dt->jumlah}}</td>
+							<td>{{$dt->jumlah}} {{empty($dt->aset->satuan)?null:$dt->aset->satuan->name}}</td>
 							<td>Rp{{number_format($dt->jumlah * $dt->harga)}}</td>
 							@if(auth()->user()->role == 'admin')
 							<td>

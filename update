@@ -1,0 +1,4 @@
+ALTER TABLE `permintaan_asset` ADD `satuan_id` BIGINT  NULL AFTER `jumlah`;
+ALTER TABLE `asset_masuk` ADD `satuan_id` BIGINT  NULL AFTER `jumlah`;
+ALTER TABLE `asset_keluar` ADD `satuan_id` BIGINT NULL DEFAULT NULL AFTER `jumlah`; 
+ALTER TABLE `assets` ADD `satuan_id` BIGINT NULL DEFAULT NULL AFTER `harga`; 

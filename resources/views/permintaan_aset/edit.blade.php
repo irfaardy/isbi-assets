@@ -15,16 +15,29 @@
 		</div>
 		<div class="col-md-12 col-sm-12">
 			<label>Nama Barang</label>
-			<select class="select2 form-control" name="asset_id">
+			<select class="select2 form-control" id="asset_id" name="asset_id">
 				@foreach($aset_list as $a)
 				<option value="{{$a->id}}" @if($data->asset_id == $a->id) selected @endif>{{$a->kode_barang}} - {{$a->nama_barang}}</option>
 				@endforeach
 			</select>
+			<div class="alert alert-info mt-3" id="infoBarang" style="display:none"> Nama-Kode : <span id="namabrg"></span> <br> Jumlah Stok :  <span id="jumlahstok"></span>  </div>
 		</div>
 		
 		<div class="col-md-6 col-sm-12">
 			<label>Jumlah</label>
-			<input class="form-control" value="{{$data->jumlah}}" type="number" name="jumlah" required>
+			<div class="row">
+				<div class="col-md-10">
+					<input class="form-control" id="jumlah" type="number" value="{{$data->jumlah}}" name="jumlah" required>
+				</div>
+				<div class="col-md-2">
+					<select class="form-control" required name="satuan">
+						<option>Pilih</option>
+						@foreach($satuan as $s)
+						<option value="{{$s->id}}" @if($s->id == $data->satuan_id) selected @endif>{{$s->name}}</option>
+						@endforeach
+					</select>
+				</div>
+				</div>
 		</div>
 		<div class="col-md-12 col-sm-12">
 			<label>Kepentingan</label>
@@ -50,5 +63,21 @@
 </form>
 @endsection
 @section('javascript')
-
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+	$('#asset_id').change(function(e){
+		axios.post('{{route('aset.getstock')}}', {
+		    id: $(this).val(),
+		  })
+		  .then(function (response) {
+		  	$('#infoBarang').fadeIn('fast');
+		    $('#namabrg').html(response.data.nama_barang+" - "+response.data.kode_barang);
+		    $('#jumlahstok').html(response.data.jumlah+" "+response.data.satuan);
+		    $('#jumlah').attr('max',response.data.jumlah)
+		  })
+		  .catch(function (error) {
+		    console.log(error);
+		  });
+	})
+</script>
 @endsection

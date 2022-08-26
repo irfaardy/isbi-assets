@@ -38,7 +38,7 @@
 							<td>{{$dt->nama_barang}}</td>
 							<td>{{empty($dt->kategoritb) ? "-":$dt->kategoritb->name}}</td>
 							<td>{{empty($dt->jenistb) ? "-":$dt->jenistb->name}}</td>
-							<td>{{number_format($dt->jumlah)}}</td>
+							<td>{{number_format($dt->jumlah)}} {{empty($dt->satuan)?null:$dt->satuan->name}}</td>
 							<td>Rp{{number_format($dt->harga)}}</td>
 							<td>Rp{{number_format($dt->jumlah*$dt->harga)}}</td>
 								@if(auth()->user()->role == 'admin')

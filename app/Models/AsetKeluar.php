@@ -19,6 +19,7 @@ class AsetKeluar extends Model
         'asset_id',
         'jumlah',
         'jenis',
+        'satuan_id',
         'jumlah',
     ];
 
@@ -27,4 +28,8 @@ class AsetKeluar extends Model
         return $this->belongsTo(Aset::class, 'asset_id');
     }
 
+     public function satuan()
+    {
+        return $this->belongsTo(Satuan::class, 'satuan_id');
+    }
 }

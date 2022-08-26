@@ -15,7 +15,7 @@ class PermintaanAset extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'nama_pengaju','pengaju_id','unit_kerja','asset_id','jumlah','kepentingan','is_acc','accessor_id','keterangan'
+        'nama_pengaju','pengaju_id','unit_kerja','asset_id','jumlah','satuan_id','kepentingan','is_acc','accessor_id','keterangan'
     ];
 
      public function aset()
@@ -25,5 +25,9 @@ class PermintaanAset extends Model
     public function accessor()
     {
         return $this->belongsTo(User::class, 'accessor_id');
+    }
+    public function satuan()
+    {
+        return $this->belongsTo(Satuan::class, 'satuan_id');
     }
 }

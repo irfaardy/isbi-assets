@@ -20,6 +20,7 @@ class Aset extends Model
         'kategori',
         'jenis',
         'jumlah',
+        'satuan_id',
         'harga',
         'updated_by',
     ];
@@ -30,6 +31,10 @@ class Aset extends Model
     public function jenistb()
     {
         return $this->belongsTo(Jenis::class, 'jenis');
+    }
+     public function satuan()
+    {
+        return $this->belongsTo(Satuan::class, 'satuan_id');
     }
 
 }

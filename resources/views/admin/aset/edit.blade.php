@@ -34,9 +34,22 @@
 			<label>Harga Barang satuan</label>
 			<input class="form-control" type="number" min="0" name="harga" value="{{$assets->harga}}">
 		</div>
+		
 		<div class="col-md-6 col-sm-12">
 			<label>Jumlah</label>
-			<input class="form-control" type="number" value="{{$assets->jumlah}}" name="jumlah" required>
+			<div class="row">
+				<div class="col-md-10">
+					<input class="form-control" type="number" value="{{$assets->jumlah}}" name="jumlah" required>
+				</div>
+				<div class="col-md-2">
+					<select class="form-control" required name="satuan">
+						<option>Pilih</option>
+						@foreach($satuan as $s)
+						<option value="{{$s->id}}" @if($s->id == $assets->satuan_id) selected @endif>{{$s->name}}</option>
+						@endforeach
+					</select>
+				</div>
+				</div>
 		</div>
 		
 		

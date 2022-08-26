@@ -34,7 +34,19 @@
 		</div>
 		<div class="col-md-6 col-sm-12">
 			<label>Jumlah</label>
-			<input class="form-control" type="number" name="jumlah" required>
+			<div class="row">
+				<div class="col-md-10">
+					<input class="form-control" type="number" name="jumlah" required>
+				</div>
+				<div class="col-md-2">
+					<select class="form-control" required name="satuan">
+						<option>Pilih</option>
+						@foreach($satuan as $s)
+						<option value="{{$s->id}}">{{$s->name}}</option>
+						@endforeach
+					</select>
+				</div>
+				</div>
 		</div>
 		
 		

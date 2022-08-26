@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\PermintaanAset;
+use App\Models\Satuan;
 use App\Models\Aset;
 use App\Exports\PermintaanAsetExport;
 use Hash;
@@ -12,6 +13,7 @@ class PermintaanAsetController extends Controller
    
     public function index(Request $request)
     {
+
         if(!empty($request->id))
         {
             $assets = PermintaanAset::where('id',$request->id)->get();
@@ -30,8 +32,9 @@ class PermintaanAsetController extends Controller
     }
     public function create()
     {
+        $satuan = Satuan::get();
         $aset = Aset::orderBy('nama_barang','ASC')->get();
-        return view('permintaan_aset/create')->with(['aset' => $aset]);
+        return view('permintaan_aset/create')->with(['aset' => $aset,'satuan' => $satuan]);
     }
 
     public function save(Request $request)
@@ -43,6 +46,7 @@ class PermintaanAsetController extends Controller
                     'jumlah' => "required|numeric",
                     'kepentingan' => "required|string",
                     'keterangan' => "nullable|string",
+                    'satuan' => "required|string|exists:\App\Models\Satuan,id",
                     ];
         // dd($request->password_confirmation." ".$request->password);
         $this->validate($request, $validate);
@@ -54,9 +58,10 @@ class PermintaanAsetController extends Controller
 
     public function edit($id)
     {
+        $satuan = Satuan::get();
         $data = PermintaanAset::where('id',$id)->first();
         $aset = Aset::orderBy('nama_barang','ASC')->get();
-        return view('permintaan_aset/edit')->with(['data' => $data,'aset_list' => $aset]);
+        return view('permintaan_aset/edit')->with(['data' => $data,'aset_list' => $aset,'satuan' => $satuan]);
     } 
 
     public function export(Request $request)
@@ -129,6 +134,7 @@ class PermintaanAsetController extends Controller
                     'jumlah' => "required|numeric",
                     'kepentingan' => "required|string",
                     'keterangan' => "nullable|string",
+                    'satuan' => "required|string|exists:\App\Models\Satuan,id",
                     ];
         $this->validate($request, $validate);
 
@@ -153,6 +159,7 @@ class PermintaanAsetController extends Controller
             'jumlah' => $request->jumlah,
             'kepentingan' => $request->kepentingan,
             'keterangan' => $request->keterangan,
+            'satuan_id' => $request->satuan,
         ];
          if(!$is_update)
         {

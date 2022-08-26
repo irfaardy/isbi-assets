@@ -35,7 +35,7 @@
 							<td>{{$dt->nama_pengaju}}</td>
 							<td>{{$dt->unit_kerja}}</td>
 							<td>{{$dt->aset->nama_barang}}</td>
-							<td>{{$dt->jumlah}}</td>
+							<td>{{$dt->jumlah}} {{empty($dt->satuan)?null:$dt->satuan->name}}</td>
 							<td>@if($dt->is_acc == 0)
 									<span class="badge badge-secondary">Menunggu</span>
 								@elseif($dt->is_acc == 1)

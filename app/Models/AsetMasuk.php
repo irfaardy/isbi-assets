@@ -20,11 +20,16 @@ class AsetMasuk extends Model
         'jumlah',
         'jenis',
         'jumlah',
+        'satuan_id',
         'harga',
     ];
 
      public function aset()
     {
         return $this->belongsTo(Aset::class, 'asset_id');
+    }
+     public function satuan()
+    {
+        return $this->belongsTo(Satuan::class, 'satuan_id');
     }
 }
