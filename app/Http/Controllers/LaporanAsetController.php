@@ -24,6 +24,10 @@ class LaporanAsetController extends Controller
 
     public function index_self()
     {
+        if(!empty($request->notif_id))
+        {
+            \NotifHelpers::setRead($request->notif_id);
+        }
         $assets = LaporanAset::where('pengaju_id',auth()->user()->id)->get();
         return view('laporan/index')->with(['assets' => $assets]);
     }
