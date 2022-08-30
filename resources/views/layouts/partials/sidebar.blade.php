@@ -140,7 +140,7 @@
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-clipboard-list"></i>
               <p>
-                 Laporan Aset
+                Pelaporan Aset
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
@@ -167,6 +167,27 @@
                 </a>
               </li> 
               @endif
+            </ul>
+          </li>
+          @endif
+          @if(auth()->user()->role == 'ketua_upt' || auth()->user()->role == 'admin')
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-clipboard-list"></i>
+              <p>
+                 Laporan
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              
+              <li class="nav-item">
+                <a href="{{route('report.aset')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Laporan Aset</p>
+                </a>
+              </li> 
+              
             </ul>
           </li>
           @endif

@@ -98,4 +98,10 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
     
     Route::get('/laporan-aset/detail/{id}', [App\Http\Controllers\LaporanAsetController::class, 'detail'])->name('pengajuan.laporan.detail');
     Route::get('/laporan-aset/download/{file}', [App\Http\Controllers\LaporanAsetController::class, 'download'])->name('laporan.aset.download');
+
+
+    Route::get('/report/asset', [App\Http\Controllers\ReportAssetController::class, 'index'])->name('report.aset');
+    Route::get('/report/download', [App\Http\Controllers\ReportAssetController::class, 'download'])->name('report.download');
+
+
 });

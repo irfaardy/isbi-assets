@@ -38,8 +38,8 @@
 							<td>{{$dt->tanggal}}</td>
 							<td>{{$dt->aset->kode_barang}}</td>
 							<td>{{$dt->aset->nama_barang}}</td>
-							<td>{{$dt->aset->kategori}}</td>
-							<td>{{$dt->aset->jenis}}</td>
+							<td>{{$dt->aset->kategoritb->name}}</td>
+							<td>{{$dt->aset->jenistb->name}}</td>
 							<td>Rp{{number_format($dt->harga)}}</td>
 							<td>{{$dt->jumlah}} {{empty($dt->aset->satuan)?null:$dt->aset->satuan->name}}</td>
 							<td>Rp{{number_format($dt->jumlah * $dt->harga)}}</td>
