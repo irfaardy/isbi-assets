@@ -27,8 +27,9 @@
 						<th  style="border: #000 solid 1px;">Total</th>
 					</thead>
 					<tbody>
-						<?php $i = 1; ?>
+						<?php $i = 1; $total=0; ?>
 						@foreach($assets as $dt)
+ 						<?php $total += $dt->jumlah * $dt->harga; ?>
 						<tr  style="border: #000 solid 1px;">
 							<td  style="border: #000 solid 1px;">{{$i++}}</td>
 							<td  style="border: #000 solid 1px;">{{$dt->aset->kode_barang}}</td>
@@ -40,6 +41,12 @@
 							
 						</tr>
 						@endforeach
+							<tfoot>
+						<tr style="border: #000 solid 1px;">
+							<td colspan="6" style="border: #000 solid 1px;"><h4><b>Total</b></h4></td>
+							<td style="border: #000 solid 1px;"><h4><b>Rp{{number_format($total)}}</b></h4></td>
+						</tr>
+					</tfoot>
 					</tbody>
 				</table>
 </body>
