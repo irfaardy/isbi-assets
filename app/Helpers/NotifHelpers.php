@@ -34,7 +34,7 @@ class NotifHelpers
 
 	static function getNotif()
 	{
-		$notif = Notifikasi::where('user_id',auth()->user()->id)->orderBy('created_at','asc')->get();
+		$notif = Notifikasi::where('user_id',auth()->user()->id)->where('is_read',false)->orderBy('created_at','asc')->get();
 
 		return $notif;
 	}

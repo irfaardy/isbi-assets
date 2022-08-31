@@ -116,7 +116,7 @@
             </a>
             <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right" style="left: inherit; right: 0px;">
             @foreach(NotifHelpers::getNotif() as $nf)
-               <a href="{{$nf->url}}" class="dropdown-item">
+               <a data-id="{{$nf->id}}" read-n href="{{$nf->url}}" class="dropdown-item">
 
                 <div class="media">
                 <img src="" alt="" class="img-size-50 mr-3 img-circle">
@@ -313,7 +313,22 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/3.2.0/js/adminlte.min.js" integrity="sha512-KBeR1NhClUySj9xBB0+KRqYLPkM6VvXiiWaSz/8LCQNdRpUm38SWUrj0ccNDNSkwCD9qPA4KobLliG26yPppJA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
  <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js" integrity="sha512-T/tUfKSV1bihCnd+MxKD0Hm1uBBroVYBOYSk1knyvQ9VyZJpc/ALb4P0r6ubwVPSGB2GvjeoMAJJImBG12TiaQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
+ <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script type="text/javascript">
+  $('[read-n]').click(function(e){
+    e.preventDefault()
+    var link = $(this).attr('href');
+    axios.post('{{route('notif.setRead')}}', {
+    id: $(this).data('id'),
+  })
+  .then(function (response) {
+    window.location.href = link
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+  })
+</script>
  @include('layouts/partials/alert')
      <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 @yield('javascript')

@@ -15,7 +15,7 @@ class Notifikasi extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'user_id','text','url'
+        'user_id','text','url','is_read'
     ];
 
 }

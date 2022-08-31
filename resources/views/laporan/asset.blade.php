@@ -55,8 +55,9 @@
 						<th>Total</th>
 					</thead>
 					<tbody>
-						<?php $i = 1; ?>
+						<?php $i = 1; $total=0; ?>
 						@foreach($assets as $dt)
+ 						<?php $total += $dt->jumlah * $dt->harga; ?>
 						<tr>
 							<td>{{$i++}}</td>
 							<td>{{$dt->aset->kode_barang}}</td>
@@ -69,6 +70,12 @@
 						</tr>
 						@endforeach
 					</tbody>
+					<tfoot>
+						<tr>
+							<td colspan="6"><h4><b>Total</b></h4></td>
+							<td ><h4><b>Rp{{number_format($total)}}</b></h4></td>
+						</tr>
+					</tfoot>
 				</table>
 				@else
 				<div class="alert alert-info" align="center">Mohon pilih tanggal dahulu</div>

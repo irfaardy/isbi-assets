@@ -103,5 +103,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
     Route::get('/report/asset', [App\Http\Controllers\ReportAssetController::class, 'index'])->name('report.aset');
     Route::get('/report/download', [App\Http\Controllers\ReportAssetController::class, 'download'])->name('report.download');
 
+    Route::post('/notify/setRead', [App\Http\Controllers\NotifyController::class, 'setRead'])->name('notif.setRead');
+
 
 });
