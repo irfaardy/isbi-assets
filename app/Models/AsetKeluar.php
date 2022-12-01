@@ -19,6 +19,7 @@ class AsetKeluar extends Model
         'asset_id',
         'jumlah',
         'jenis',
+        'jumlah',
         'satuan_id',
         'jumlah',
     ];

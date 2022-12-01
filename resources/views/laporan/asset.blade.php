@@ -57,15 +57,27 @@
 					<tbody>
 						<?php $i = 1; $total=0; ?>
 						@foreach($assets as $dt)
- 						<?php $total += $dt->jumlah * $dt->harga; ?>
+						@if(Request::get('tipe')=='keluar') 
+							<?php $total += $dt->jumlah * $dt->aset->harga; ?>
+							<?php $sub = $dt->jumlah * $dt->aset->harga; ?>
+							
+						@else 
+							<?php $total += $dt->jumlah * $dt->harga; ?>
+							<?php $sub = $dt->jumlah * $dt->harga; ?>
+						@endif
+ 						
 						<tr>
 							<td>{{$i++}}</td>
 							<td>{{$dt->aset->kode_barang}}</td>
 							<td>{{$dt->aset->nama_barang}}</td>
-							<td>Rp{{number_format($dt->harga)}}</td>
+							<td>@if(Request::get('tipe')=='keluar')
+							 {{empty($dt->aset) ? "Rp0":"Rp".number_format($dt->aset->harga)}}
+							 @else 
+							 Rp{{number_format($dt->harga)}}
+							  @endif</td>
 							<td>{{$dt->jumlah}} </td>
-							<td>{{empty($dt->aset->satuan)?null:$dt->aset->satuan->name}}</td>
-							<td>Rp{{number_format($dt->jumlah * $dt->harga)}}</td>
+							<td>{{empty($dt->aset->satuan)?'-':$dt->aset->satuan->name}}</td>
+							<td>Rp{{number_format($sub)}}</td>
 							
 						</tr>
 						@endforeach
