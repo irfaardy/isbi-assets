@@ -24,7 +24,11 @@
 	</div>
 	<div class="col-md-12">
 		<b>Nama Barang</b><br>
-		{{$data->aset->kode_barang}} - {{$data->aset->nama_barang}}
+		@if(!empty($data->aset))
+			{{$data->aset->kode_barang}} - {{$data->aset->nama_barang}}
+		@else
+			-
+		@endif
 	</div>
 	<div class="col-md-12">
 		<b>Kepentingan</b><br>
